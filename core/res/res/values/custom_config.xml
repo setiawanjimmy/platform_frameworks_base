@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/* Copyright 2012, The Android Open Source Project
+/*
+** Copyright 2009, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -15,16 +16,13 @@
 ** limitations under the License.
 */
 -->
-<resources>
 
-  <!-- Advanced Power menu w/ restart options -->
-  <java-symbol type="array" name="shutdown_reboot_options" />
-  <java-symbol type="array" name="shutdown_reboot_actions" />
-  <java-symbol type="string" name="reboot_title" />
-  <java-symbol type="string" name="reboot_confirm" />
-  <java-symbol type="string" name="reboot_progress" />
+<!-- These resources are around just to allow their values to be customized
+     for different hardware and product builds.  Do not translate. -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-  <!-- Package Manager -->
-  <java-symbol type="array" name="config_disabledComponents" />
+    <!-- The list of components which should be automatically disabled. -->
+    <string-array name="config_disabledComponents" translatable="false">
+    </string-array>
 
 </resources>
