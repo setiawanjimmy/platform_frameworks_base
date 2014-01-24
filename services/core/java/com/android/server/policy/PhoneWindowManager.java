@@ -2077,6 +2077,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         filter.addAction(Intent.ACTION_SCREENSHOT);
         context.registerReceiver(mPowerMenuReceiver, filter);
 
+        // register for screenrecord
+        filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREENRECORD);
+        context.registerReceiver(mPowerMenuReceiver, filter);
+
         // monitor for system gestures
         mSystemGestures = new SystemGesturesPointerEventListener(context,
                 new SystemGesturesPointerEventListener.Callbacks() {
@@ -6741,6 +6746,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (Intent.ACTION_SCREENSHOT.equals(intent.getAction())) {
                 mHandler.removeCallbacks(mScreenshotRunnable);
                 mHandler.post(mScreenshotRunnable);
+            } else if (Intent.ACTION_SCREENRECORD.equals(intent.getAction())) {
+                mHandler.removeCallbacks(mScreenrecordRunnable);
+                mHandler.post(mScreenrecordRunnable);
             }
         }
     };
