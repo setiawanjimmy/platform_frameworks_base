@@ -795,6 +795,13 @@ public class Intent implements Parcelable, Cloneable {
      * @hide
      */
     public static final String ACTION_SCREENSHOT = "android.intent.action.SCREENSHOT";
+    /**
+     * PhoneWindowManager: Take Screenshot via takeScreenrecord()
+     * <p>Input: nothing
+     * <p>Output: nothing
+     * @hide
+     */
+    public static final String ACTION_SCREENRECORD = "android.intent.action.SCREENRECORD";
 
     /**
      * An activity that provides a user interface for adjusting application preferences.
