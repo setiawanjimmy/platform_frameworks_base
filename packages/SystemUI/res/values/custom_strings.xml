@@ -45,4 +45,6 @@
     <string name="quick_settings_caffeine_label">Screen on</string>
     <string name="accessibility_quick_settings_caffeine_off">Screen off</string>
     <string name="accessibility_quick_settings_caffeine_on">Screen on</string>
+    <!-- Brightness QS Tile -->
+    <string name="quick_settings_brightness">Brightness</string>
 </resources>
