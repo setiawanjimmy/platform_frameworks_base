@@ -117,6 +117,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
     private static final String GLOBAL_ACTION_KEY_RESTART = "restart";
     private static final String GLOBAL_ACTION_KEY_RESTART_RECOVERY = "restart_recovery";
     private static final String GLOBAL_ACTION_KEY_SCREENSHOT = "screenshot";
+    private static final String GLOBAL_ACTION_KEY_SCREENRECORD = "screenrecord";
 
     private final Context mContext;
     private final GlobalActionsManager mWindowManagerFuncs;
@@ -339,6 +340,11 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
                         Settings.System.POWERMENU_SCREENSHOT, 0) != 0) {
                     mItems.add(new ScreenShotAction());
                 }
+            } else if (GLOBAL_ACTION_KEY_SCREENRECORD.equals(actionKey)) {
+                if (Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.POWERMENU_SCREENRECORD, 0) != 0) {
+                    mItems.add(new ScreenRecordAction());
+                }
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
@@ -479,6 +485,33 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
                 @Override
                 public void run() {
                     Intent intent = new Intent(Intent.ACTION_SCREENSHOT);
+                    mContext.sendBroadcast(intent);
+                }
+            }, 500);
+        }
+    }
+
+    private final class ScreenRecordAction extends SinglePressAction {
+        private ScreenRecordAction() {
+            super(R.drawable.ic_screenrecord, R.string.global_action_screenrecord);
+        }
+
+        @Override
+        public boolean showDuringKeyguard() {
+            return true;
+        }
+
+        @Override
+        public boolean showBeforeProvisioning() {
+            return true;
+        }
+
+        @Override
+        public void onPress() {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(Intent.ACTION_SCREENRECORD);
                     mContext.sendBroadcast(intent);
                 }
             }, 500);

@@ -21,7 +21,9 @@
   <java-symbol type="string" name="reboot_to_recovery_message" />
   <java-symbol type="string" name="global_action_restart_recovery" />
   <java-symbol type="string" name="global_action_screenshot" />
+  <java-symbol type="string" name="global_action_screenrecord" />
   <java-symbol type="drawable" name="ic_restart_recovery" />
   <java-symbol type="drawable" name="ic_screenshot" />
+  <java-symbol type="drawable" name="ic_screenrecord" />
   <java-symbol type="array" name="config_globalActionsList_custom" />
 </resources>
