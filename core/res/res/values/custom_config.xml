@@ -33,6 +33,7 @@
          "restart" = restart device
          "restart recovery" = restart device to recovery
          "screenshot" = Take screenshot
+         "screenrecord" = Take screen recording
          "airplane" = Airplane mode toggle
          "settings" = An action to launch settings
          "lockdown" = An action to lock it down
@@ -43,6 +44,7 @@
         <item>restart</item>
         <item>restart_recovery</item>
         <item>screenshot</item>
+        <item>screenrecord</item>
         <item>airplane</item>
         <item>settings</item>
         <item>silent</item>
