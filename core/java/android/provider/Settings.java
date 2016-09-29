@@ -3412,6 +3412,12 @@ public final class Settings {
          */
         public static final String BATTERY_LIGHT_REALLY_FULL_COLOR = "battery_light_really_full_color";
 
+         /**
+         * Whether the notification light will be allowed when in zen mode during downtime
+         * @hide
+         */
+        public static final String ALLOW_LIGHTS = "allow_lights";
+
         /**
          * Show pointer location on screen?
          * 0 = no
