@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Velvet Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,23 +28,20 @@ import android.view.MenuItem;
 import com.android.settingslib.drawer.SettingsDrawerActivity;
 import com.android.systemui.R;
 
-public class TunerActivity extends SettingsDrawerActivity implements
+public class OtherPrefsActivity extends SettingsDrawerActivity implements
         PreferenceFragment.OnPreferenceStartFragmentCallback,
         PreferenceFragment.OnPreferenceStartScreenCallback {
 
-    private static final String TAG_TUNER = "tuner";
+    private static final String TAG = "otherprefstuner";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getFragmentManager().findFragmentByTag(TAG_TUNER) == null) {
+        if (getFragmentManager().findFragmentByTag(TAG) == null) {
             final String action = getIntent().getAction();
-            boolean showDemoMode = action != null && action.equals(
-                    "com.android.settings.action.DEMO_MODE");
-            final PreferenceFragment fragment = showDemoMode ? new DemoModeFragment()
-                    : new TunerFragment();
+            final PreferenceFragment fragment = new OtherPrefs();
             getFragmentManager().beginTransaction().replace(R.id.content_frame,
-                    fragment, TAG_TUNER).commit();
+                    fragment, TAG).commit();
         }
     }
 
@@ -54,7 +52,7 @@ public class TunerActivity extends SettingsDrawerActivity implements
         }
     }
 
-     @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -76,7 +74,7 @@ public class TunerActivity extends SettingsDrawerActivity implements
             transaction.commit();
             return true;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            Log.d("TunerActivity", "Problem launching fragment", e);
+            Log.d("OtherPrefsActivity", "Problem launching fragment", e);
             return false;
         }
     }
@@ -100,26 +98,6 @@ public class TunerActivity extends SettingsDrawerActivity implements
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferenceScreen((PreferenceScreen) ((PreferenceFragment) getTargetFragment())
                     .getPreferenceScreen().findPreference(rootKey));
-        }
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            setHasOptionsMenu(true);
-        }
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case android.R.id.home:
-                    getFragmentManager().popBackStack();
-                    return true;
-            }
-            return super.onOptionsItemSelected(item);
         }
     }
 
