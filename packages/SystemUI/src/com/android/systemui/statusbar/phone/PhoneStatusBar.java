@@ -399,6 +399,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private TextView mCarrierLabel;
     boolean mExpandedVisible;
 
+    // BELTZ logo
+    private boolean mBeltzLogo;
+    private ImageView beltzLogo;
+
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
     private int mStatusBarHeaderHeight;
@@ -471,6 +475,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_CARRIER), false, this,
                     UserHandle.USER_ALL);
+             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BELTZ_LOGO),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -496,6 +503,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     UserHandle.USER_CURRENT) == 1;
             mShowCarrierLabel = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
+            mBeltzLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_BELTZ_LOGO, 0, mCurrentUserId) == 1;
+            showBeltzLogo(mBeltzLogo);
         }
     }
 
@@ -3756,6 +3766,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
         }, cancelAction, afterKeyguardGone);
     }
+
+    public void showBeltzLogo(boolean show) {
+          if (mStatusBarView == null) return;
+          ContentResolver resolver = mContext.getContentResolver();
+          beltzLogo = (ImageView) mStatusBarView.findViewById(R.id.beltz_logo);
+          if (beltzLogo != null) {
+              beltzLogo.setVisibility(show ? (mBeltzLogo ? View.VISIBLE : View.GONE) : View.GONE);
+          }
+     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
