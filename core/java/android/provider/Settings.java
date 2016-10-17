@@ -3393,6 +3393,12 @@ public final class Settings {
          */
         public static final String BATTERY_LIGHT_PULSE = "battery_light_pulse";
 
+         /**
+         * custom carrier label. The value is
+         * String.
+         */
+        public static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+
         /**
          * What color to use for the battery LED while charging - low
          * @hide
@@ -3672,6 +3678,16 @@ public final class Settings {
          * @hide
          */
         public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
+
+         /**
+         * Status bar carrier label
+         * 0: Hide
+         * 1: Display on keyguard status bar
+         * 2: Display on Normal status bar
+         * 3: Enabled for both
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
 
         /**
          * Disable dashboard suggestions in settings
