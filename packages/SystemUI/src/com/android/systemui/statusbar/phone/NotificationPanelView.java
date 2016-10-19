@@ -207,6 +207,7 @@ public class NotificationPanelView extends PanelView implements
     private boolean mLaunchingAffordance;
     private FalsingManager mFalsingManager;
     private String mLastCameraLaunchSource = KeyguardBottomAreaView.CAMERA_LAUNCH_SOURCE_AFFORDANCE;
+    private boolean mDozeWakeupDoubleTap;
     private GestureDetector mDoubleTapGesture;
     private boolean mDoubleTapToSleepAnywhere = getResources().getBoolean(R.bool.config_doubletap_lockscreen_sleep);
 
@@ -771,7 +772,8 @@ public class NotificationPanelView extends PanelView implements
             return false;
         }
         if (mDoubleTapToSleepAnywhere
-                && mStatusBarState == StatusBarState.KEYGUARD) {
+                && mStatusBarState == StatusBarState.KEYGUARD
+                && !mStatusBar.isDozing()) {
             mDoubleTapGesture.onTouchEvent(event);
         }
         initDownStates(event);
@@ -782,7 +784,10 @@ public class NotificationPanelView extends PanelView implements
         }
         if ((!mIsExpanding || mHintAnimationRunning)
                 && !mQsExpanded
-                && mStatusBar.getBarState() != StatusBarState.SHADE) {
+                && mStatusBar.getBarState() != StatusBarState.SHADE
+                && !(mDozeWakeupDoubleTap
+                     && mStatusBarState == StatusBarState.KEYGUARD
+                     && mStatusBar.isDozing())) {
             mAfforanceHelper.onTouchEvent(event);
         }
         if (mOnlyAffordanceInThisMotion) {
@@ -2417,6 +2422,8 @@ public class NotificationPanelView extends PanelView implements
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_WAKE_DOZE), false, this);
             update();
         }
 
@@ -2439,6 +2446,8 @@ public class NotificationPanelView extends PanelView implements
             ContentResolver resolver = mContext.getContentResolver();
             mOneFingerQuickSettingsIntercept = Settings.System.getInt(
                     resolver, Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN, 1) == 1;
+            mDozeWakeupDoubleTap = Settings.System.getInt(
+                    resolver, Settings.System.DOUBLE_TAP_WAKE_DOZE, 1) == 1;
         }
     }
 }
