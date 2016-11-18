@@ -43,6 +43,7 @@
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
+    <string name="quick_settings_region_screenshot_label">Partial screenshot</string>
     <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Screen on</string>
     <string name="accessibility_quick_settings_caffeine_off">Screen off</string>
