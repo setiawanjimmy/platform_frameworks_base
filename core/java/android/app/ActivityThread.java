@@ -4784,7 +4784,7 @@ public final class ActivityThread {
     final void handleActivityConfigurationChanged(ActivityConfigChangeData data,
             boolean reportToActivity) {
         ActivityClientRecord r = mActivities.get(data.activityToken);
-        if (r == null || r.activity == null) {
+        if (r == null || r.activity == null || r.activity.mFinished) {
             return;
         }
 
