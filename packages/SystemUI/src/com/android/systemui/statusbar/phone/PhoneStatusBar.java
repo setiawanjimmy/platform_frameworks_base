@@ -372,6 +372,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // settings
     private QSPanel mQSPanel;
 
+    // data/wifi activity arrows
+    private boolean mDataWifiActivityArrows;
+
     // top bar
     BaseStatusBarHeader mHeader;
     protected KeyguardStatusBarView mKeyguardStatusBar;
@@ -478,6 +481,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
              resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BELTZ_LOGO),
                     false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.DATA_ACTIVITY_ARROWS),
+                  false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -487,6 +493,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_SHOW_CARRIER))) {
                 update();
                 updateCarrier();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DATA_ACTIVITY_ARROWS))) {
+                    mDataWifiActivityArrows = Settings.System.getIntForUser(
+                            mContext.getContentResolver(),
+                            Settings.System.DATA_ACTIVITY_ARROWS,
+                            0, UserHandle.USER_CURRENT) == 1;
             }
             update();
         }
@@ -503,6 +515,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     UserHandle.USER_CURRENT) == 1;
             mShowCarrierLabel = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
+            boolean mDataWifiActivityArrows = Settings.System.getIntForUser(resolver,
+                    Settings.System.DATA_ACTIVITY_ARROWS, 0, UserHandle.USER_CURRENT) == 1;
             mBeltzLogo = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_BELTZ_LOGO, 0, mCurrentUserId) == 1;
             showBeltzLogo(mBeltzLogo);
