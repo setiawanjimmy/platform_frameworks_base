@@ -30,4 +30,7 @@
 
     <color name="updater_snackbar_text_color">@android:color/white</color>
 
+    <!-- Resolver -->
+    <color name="resolver_list_bg">@color/white</color>
+
 </resources>
