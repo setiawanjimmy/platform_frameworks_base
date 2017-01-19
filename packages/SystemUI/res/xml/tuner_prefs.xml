@@ -43,6 +43,11 @@
             android:key="cast"
             android:title="@string/quick_settings_cast_title" />
 
+        <!-- Data Saver -->
+     <com.android.systemui.tuner.StatusBarSwitch
+        android:key="data_saver"
+        android:title="@string/status_bar_datasaver" />
+
         <!-- DnD -->
           <com.android.systemui.tuner.StatusBarSwitch
               android:key="zen"
@@ -72,6 +77,11 @@
           <com.android.systemui.tuner.StatusBarSwitch
             android:key="volume"
             android:title="@*android:string/volume_unknown" />
+
+        <!-- VPN -->
+     <com.android.systemui.tuner.StatusBarSwitch
+        android:key="vpn"
+        android:title="@string/status_bar_vpn" />
   
         <!-- Wi-Fi -->
           <com.android.systemui.tuner.StatusBarSwitch
