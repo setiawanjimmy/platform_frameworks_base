@@ -5996,31 +5996,37 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_BLACKLIST_VALUES),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
-                setLockscreenDoubleTapToSleep();
+                setStatusBarWindowViewOptions();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_BLACKLIST_VALUES))) {
                 final String blackString = Settings.System.getString(mContext.getContentResolver(),
                         Settings.System.HEADS_UP_BLACKLIST_VALUES);
                 splitAndAddToArrayList(mBlacklist, blackString, "\\|");
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
+                setStatusBarWindowViewOptions();
             }
 
         }
 
         public void update() {
-            setLockscreenDoubleTapToSleep();
             setHeadsUpBlacklist();
+            setStatusBarWindowViewOptions();
         }
     }
 
-    private void setLockscreenDoubleTapToSleep() {
+    private void setStatusBarWindowViewOptions() {
         if (mStatusBarWindow != null) {
-            mStatusBarWindow.setLockscreenDoubleTapToSleep();
+            mStatusBarWindow.setStatusBarWindowViewOptions();
         }
     }
 
