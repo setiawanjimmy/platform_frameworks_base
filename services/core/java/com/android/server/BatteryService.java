@@ -154,6 +154,7 @@ public final class BatteryService extends SystemService {
     private Led mLed;
 
     //Battery light color customization
+    private boolean mLightEnabled;
     private boolean mAllowBatteryLightOnDnd;
     private boolean mIsDndActive;
     private boolean mLowBatteryBlinking;
@@ -257,6 +258,9 @@ public final class BatteryService extends SystemService {
             ContentResolver resolver = mContext.getContentResolver();
 
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.BATTERY_LIGHT_ENABLED),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BATTERY_LIGHT_ALLOW_ON_DND),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
@@ -291,6 +295,8 @@ public final class BatteryService extends SystemService {
             ContentResolver resolver = mContext.getContentResolver();
             Resources res = mContext.getResources();
 
+            mLightEnabled= Settings.System.getInt(resolver,
+                    Settings.System.BATTERY_LIGHT_ENABLED, 1) == 1;
             mAllowBatteryLightOnDnd = Settings.System.getInt(resolver,
                     Settings.System.BATTERY_LIGHT_ALLOW_ON_DND, 0) == 1;
             mIsDndActive = Settings.Global.getInt(resolver,
@@ -988,7 +994,7 @@ public final class BatteryService extends SystemService {
             }
             final int level = mBatteryProps.batteryLevel;
             final int status = mBatteryProps.batteryStatus;
-            if (mIsDndActive && !mAllowBatteryLightOnDnd) {
+            if (mIsDndActive && !mAllowBatteryLightOnDnd || !mLightEnabled) {
                 mBatteryLight.turnOff();
             } else if (level < mLowBatteryWarningLevel) {
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
