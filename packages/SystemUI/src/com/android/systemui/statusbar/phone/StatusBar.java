@@ -5999,6 +5999,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_FOOTER_WARNINGS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6014,6 +6017,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
                 setStatusBarWindowViewOptions();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_FOOTER_WARNINGS))) {
+                setQsPanelOptions();
             }
 
         }
@@ -6021,6 +6027,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         public void update() {
             setHeadsUpBlacklist();
             setStatusBarWindowViewOptions();
+            setQsPanelOptions();
         }
     }
 
@@ -6035,6 +6042,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.HEADS_UP_BLACKLIST_VALUES);
         splitAndAddToArrayList(mBlacklist, blackString, "\\|");
       }
+
+    private void setQsPanelOptions() {
+        if (mQSPanel != null) {
+            mQSPanel.updateSettings();
+        }
+    }
 
     private RemoteViews.OnClickHandler mOnClickHandler = new RemoteViews.OnClickHandler() {
 
