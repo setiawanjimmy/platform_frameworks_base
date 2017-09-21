@@ -26,4 +26,7 @@
   <java-symbol type="drawable" name="ic_screenshot" />
   <java-symbol type="drawable" name="ic_screenrecord" />
   <java-symbol type="array" name="config_globalActionsList_custom" />
+
+  <java-symbol type="anim" name="du_app_in" />
+  <java-symbol type="anim" name="du_app_out" />
 </resources>
