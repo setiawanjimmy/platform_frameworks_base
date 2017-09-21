@@ -22,4 +22,9 @@
     <string name="global_action_restart_recovery" translatable="false">Recovery</string>
     <string name="global_action_screenshot">Screenshot</string>
     <string name="global_action_screenrecord">Screenrecord</string>
+
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_toggleNavigationEditor">control navigation editor</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_toggleNavigationEditor">Allows an application to control the navigation bar editor.</string>
 </resources>
