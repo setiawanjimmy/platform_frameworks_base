@@ -56,6 +56,7 @@ import com.android.systemui.plugins.qs.QSTile;
 import com.android.systemui.qs.QSContainerImpl;
 import com.android.systemui.qs.QSDetailClipper;
 import com.android.systemui.qs.QSTileHost;
+import com.android.systemui.qs.QuickQSPanel;
 import com.android.systemui.statusbar.phone.LightBarController;
 import com.android.systemui.statusbar.phone.NotificationsQuickSettingsContainer;
 import com.android.systemui.statusbar.phone.SystemUIDialog;
@@ -130,6 +131,12 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
                 UserHandle.USER_CURRENT);
         MenuItem qsTitlesMenuItem = mToolbar.getMenu().findItem(R.id.menu_item_titles);
         qsTitlesMenuItem.setChecked(qsTitlesValue == 1);
+
+        int qsScrollValue = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.QS_QUICKBAR_SCROLL_ENABLED, QuickQSPanel.NUM_QUICK_TILES_DEFAULT,
+                UserHandle.USER_CURRENT);
+        MenuItem qsScrollMenuItem = mToolbar.getMenu().findItem(R.id.menu_item_qs_scroll);
+        qsScrollMenuItem.setChecked(qsScrollValue != QuickQSPanel.NUM_QUICK_TILES_DEFAULT);
 
         mToolbar.setTitle(R.string.qs_edit);
         int defaultColumns = Math.max(1,
@@ -312,6 +319,12 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             case R.id.menu_item_columns_landscape_eight:
                 Settings.System.putIntForUser(mContext.getContentResolver(),
                         Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, 8, UserHandle.USER_CURRENT);
+                break;
+            case R.id.menu_item_qs_scroll:
+                item.setChecked(!item.isChecked());
+                Settings.System.putIntForUser(mContext.getContentResolver(),
+                        Settings.System.QS_QUICKBAR_SCROLL_ENABLED, item.isChecked() ?
+                        1 : 0, UserHandle.USER_CURRENT);
                 break;
             case R.id.menu_item_titles:
                 item.setChecked(!item.isChecked());
