@@ -14,8 +14,21 @@
      limitations under the License.
 -->
 <resources>
-
     <!-- Whether to show emergency button in power menu -->
     <bool name="config_showEmergencyButtonInPowerMenu">false</bool>
 
+    <!-- Defines the default set of global actions. Actions may still be disabled or hidden based
+         on the current state of the device.
+         Each item must be one of the following strings:
+         "power" = Power off
+         "restart" = restart device
+         "recovery" = restart device to recovery
+         "screenshot" = Take screenshot
+         -->
+    <string-array translatable="false" name="config_globalActionsList_custom">
+        <item>power</item>
+        <item>restart</item>
+        <item>recovery</item>
+        <item>screenshot</item>
+    </string-array>
 </resources>
