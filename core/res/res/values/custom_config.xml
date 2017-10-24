@@ -25,4 +25,26 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- If this is true, key chords can be used to take a screen record on the device. -->
     <bool name="config_enableScreenrecordChord">true</bool>
+
+    <!-- Defines the default set of global actions. Actions may still be disabled or hidden based
+         on the current state of the device.
+         Each item must be one of the following strings:
+         "power" = Power off
+         "restart" = restart device
+         "restart recovery" = restart device to recovery
+         "screenshot" = Take screenshot
+         "airplane" = Airplane mode toggle
+         "settings" = An action to launch settings
+         "lockdown" = An action to lock it down
+         "silent" = silent mode
+         -->
+    <string-array translatable="false" name="config_globalActionsList_custom">
+        <item>power</item>
+        <item>restart</item>
+        <item>restart_recovery</item>
+        <item>screenshot</item>
+        <item>airplane</item>
+        <item>settings</item>
+        <item>silent</item>
+    </string-array>
 </resources>

@@ -20,4 +20,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="reboot_to_recovery_message">Rebooting to recovery\u2026</string>
     <string name="global_action_restart_recovery" translatable="false">Recovery</string>
+    <string name="global_action_screenshot">Screenshot</string>
 </resources>
