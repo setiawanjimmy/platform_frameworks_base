@@ -340,13 +340,13 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
 
         @Override
-        public boolean showShutdownUi(boolean isReboot, String reason) {
+        public boolean showShutdownUi(boolean isReboot, boolean isRebootRecovery, String reason) {
             if (!mContext.getResources().getBoolean(R.bool.config_showSysuiShutdown)) {
                 return false;
             }
             if (mBar != null) {
                 try {
-                    mBar.showShutdownUi(isReboot, reason);
+                    mBar.showShutdownUi(isReboot, isRebootRecovery, reason);
                     return true;
                 } catch (RemoteException ex) {}
             }
@@ -824,6 +824,23 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
                             PowerManager.SHUTDOWN_USER_REQUESTED, false);
                 }
             });
+        } finally {
+            Binder.restoreCallingIdentity(identity);
+        }
+    }
+
+    /**
+     * Allows the status bar to reboot the device to recovery.
+     */
+    @Override
+    public void rebootRecovery() {
+        enforceStatusBarService();
+        long identity = Binder.clearCallingIdentity();
+        try {
+            // ShutdownThread displays UI, so give it a UI context.
+            mHandler.post(() ->
+                    ShutdownThread.rebootRecovery(getUiContext(),
+                        PowerManager.REBOOT_RECOVERY, false));
         } finally {
             Binder.restoreCallingIdentity(identity);
         }

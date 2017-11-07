@@ -115,6 +115,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
     private static final String GLOBAL_ACTION_KEY_VOICEASSIST = "voiceassist";
     private static final String GLOBAL_ACTION_KEY_ASSIST = "assist";
     private static final String GLOBAL_ACTION_KEY_RESTART = "restart";
+    private static final String GLOBAL_ACTION_KEY_RESTART_RECOVERY = "restart_recovery";
 
     private final Context mContext;
     private final GlobalActionsManager mWindowManagerFuncs;
@@ -317,6 +318,8 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
                 mItems.add(getAssistAction());
             } else if (GLOBAL_ACTION_KEY_RESTART.equals(actionKey)) {
                 mItems.add(new RestartAction());
+            } else if (GLOBAL_ACTION_KEY_RESTART_RECOVERY.equals(actionKey)) {
+                mItems.add(new RestartRecoveryAction());
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
@@ -415,6 +418,26 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         }
     }
 
+    private final class RestartRecoveryAction extends SinglePressAction {
+        private RestartRecoveryAction() {
+            super(R.drawable.ic_restart_recovery, R.string.global_action_restart_recovery);
+        }
+
+        @Override
+        public boolean showDuringKeyguard() {
+            return true;
+        }
+
+        @Override
+        public boolean showBeforeProvisioning() {
+            return true;
+        }
+
+        @Override
+        public void onPress() {
+            mWindowManagerFuncs.rebootRecovery();
+        }
+    }
 
     private class BugReportAction extends SinglePressAction implements LongPressAction {
 
@@ -754,7 +777,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         public View getView(int position, View convertView, ViewGroup parent) {
             Action action = getItem(position);
             View view = action.create(mContext, convertView, parent, LayoutInflater.from(mContext));
-            if (position == 2) {
+            if (position == 3) {
                 HardwareUiLayout.get(parent).setDivisionView(view);
             }
             return view;

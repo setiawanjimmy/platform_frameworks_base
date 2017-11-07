@@ -414,7 +414,6 @@ class LegacyGlobalActions implements DialogInterface.OnDismissListener, DialogIn
         }
     }
 
-
     private class BugReportAction extends SinglePressAction implements LongPressAction {
 
         public BugReportAction() {
