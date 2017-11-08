@@ -482,6 +482,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     boolean mExpandedVisible;
 
+    ActivityManager mAm;
+    private ArrayList<String> mBlacklist = new ArrayList<String>();
+
     // the tracker view
     int mTrackingPosition; // the position of the top of the tracking view.
 
@@ -876,6 +879,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
 
         mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+
+        mAm = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
         mDeviceProvisionedController = Dependency.get(DeviceProvisionedController.class);
         mDeviceProvisionedController.addCallback(mDeviceProvisionedListener);
@@ -5988,7 +5993,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
                     false, this, UserHandle.USER_ALL);
-
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5996,13 +6003,18 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
                 setLockscreenDoubleTapToSleep();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES))) {
+                final String blackString = Settings.System.getString(mContext.getContentResolver(),
+                        Settings.System.HEADS_UP_BLACKLIST_VALUES);
+                splitAndAddToArrayList(mBlacklist, blackString, "\\|");
             }
 
         }
 
         public void update() {
             setLockscreenDoubleTapToSleep();
-
+            setHeadsUpBlacklist();
         }
     }
 
@@ -6011,6 +6023,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             mStatusBarWindow.setLockscreenDoubleTapToSleep();
         }
     }
+
+    private void setHeadsUpBlacklist() {
+        final String blackString = Settings.System.getString(mContext.getContentResolver(),
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES);
+        splitAndAddToArrayList(mBlacklist, blackString, "\\|");
+      }
 
     private RemoteViews.OnClickHandler mOnClickHandler = new RemoteViews.OnClickHandler() {
 
@@ -7607,6 +7625,10 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     protected boolean shouldPeek(Entry entry, StatusBarNotification sbn) {
+        if(isPackageInBlacklist(sbn.getPackageName())) {
+            return false;
+        }
+
         if (!mUseHeadsUp || isDeviceInVrMode()) {
             if (DEBUG) Log.d(TAG, "No peeking: no huns or vr mode");
             return false;
@@ -7675,6 +7697,22 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         return true;
+    }
+
+    private boolean isPackageInBlacklist(String packageName) {
+        return mBlacklist.contains(packageName);
+    }
+
+    private void splitAndAddToArrayList(ArrayList<String> arrayList,
+            String baseString, String separator) {
+        // clear first
+        arrayList.clear();
+        if (baseString != null) {
+            final String[] array = TextUtils.split(baseString, separator);
+            for (String item : array) {
+                arrayList.add(item.trim());
+            }
+        }
     }
 
     /**
