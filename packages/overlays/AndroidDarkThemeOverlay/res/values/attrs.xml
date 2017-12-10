@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="windowNoTitle" format="boolean" />
+    <attr name="windowIsTranslucent" format="boolean" />
+    <attr name="windowContentOverlay" format="reference" />
+    <attr name="panelMenuListTheme" format="reference" />
+    <attr name="presentationTheme" format="reference" />
+    <attr name="searchDialogTheme" format="reference" />
+    <attr name="textColor" format="reference|color" />
+    <attr name="windowBackground" format="reference" />
+    <attr name="backgroundDimEnabled" format="boolean" />
+    <attr name="statusBarColor" format="color" />
+</resources>

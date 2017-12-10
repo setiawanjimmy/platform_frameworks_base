@@ -2954,8 +2954,9 @@ public class StatusBar extends SystemUI implements DemoMode,
     public boolean isUsingDarkTheme() {
         OverlayInfo themeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.systemui.theme.dark",
-                    mCurrentUserId);
+            themeInfo = mOverlayManager.getOverlayInfo("android.dark", mCurrentUserId);
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.settings.dark", mCurrentUserId);
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.systemui.theme.dark", mCurrentUserId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -4786,8 +4787,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                 && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
         if (isUsingDarkTheme() != useDarkTheme) {
             try {
-                mOverlayManager.setEnabled("com.android.systemui.theme.dark",
-                        useDarkTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("android.dark", useDarkTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.settings.dark", useDarkTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.systemui.theme.dark", useDarkTheme, mCurrentUserId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
             }
