@@ -6007,7 +6007,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         public void onChange(boolean selfChange, Uri uri) {
             if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
-                setLockscreenDoubleTapToSleep();
+                setStatusBarWindowViewOptions();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LESS_BORING_HEADS_UP))) {
                 setUseLessBoringHeadsUp();
@@ -6019,15 +6019,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         public void update() {
-            setLockscreenDoubleTapToSleep();
             setUseLessBoringHeadsUp();
             setStatusBarWindowViewOptions();
-        }
-    }
-
-    private void setLockscreenDoubleTapToSleep() {
-        if (mStatusBarWindow != null) {
-            mStatusBarWindow.setLockscreenDoubleTapToSleep();
         }
     }
 
