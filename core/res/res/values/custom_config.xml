@@ -30,5 +30,6 @@
         <item>restart</item>
         <item>recovery</item>
         <item>screenshot</item>
+        <item>airplane</item>
     </string-array>
 </resources>

@@ -252,9 +252,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         mAirplaneModeOn = new ToggleAction(
                 R.drawable.ic_lock_airplane_mode,
                 R.drawable.ic_lock_airplane_mode_off,
-                R.string.global_actions_toggle_airplane_mode,
-                R.string.global_actions_airplane_mode_on_status,
-                R.string.global_actions_airplane_mode_off_status) {
+                R.string.global_actions_toggle_airplane_mode) {
 
             void onToggle(boolean on) {
                 if (mHasTelephony && Boolean.parseBoolean(
@@ -351,7 +349,10 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             if (GLOBAL_ACTION_KEY_POWER.equals(actionKey)) {
                 mItems.add(new PowerAction());
             } else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
-                mItems.add(mAirplaneModeOn);
+                if (Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.POWERMENU_AIRPLANE, 0) == 1) {
+                    mItems.add(mAirplaneModeOn);
+                }
             } else if (GLOBAL_ACTION_KEY_BUGREPORT.equals(actionKey)) {
                 //if (Settings.Global.getInt(mContext.getContentResolver(),
                 //        Settings.Global.BUGREPORT_IN_POWER_MENU, 0) != 0 && isCurrentUserOwner()) {
@@ -1002,32 +1003,27 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             }
         }
 
+        public String getStatus() {
+            return null;
+        }
+
         protected State mState = State.Off;
 
         // prefs
         protected int mEnabledIconResId;
         protected int mDisabledIconResid;
         protected int mMessageResId;
-        protected int mEnabledStatusMessageResId;
-        protected int mDisabledStatusMessageResId;
 
         /**
          * @param enabledIconResId           The icon for when this action is on.
          * @param disabledIconResid          The icon for when this action is off.
          * @param message                    The general information message, e.g 'Silent Mode'
-         * @param enabledStatusMessageResId  The on status message, e.g 'sound disabled'
-         * @param disabledStatusMessageResId The off status message, e.g. 'sound enabled'
          */
-        public ToggleAction(int enabledIconResId,
-                int disabledIconResid,
-                int message,
-                int enabledStatusMessageResId,
-                int disabledStatusMessageResId) {
+
+        public ToggleAction(int enabledIconResId, int disabledIconResid, int message) {
             mEnabledIconResId = enabledIconResId;
             mDisabledIconResid = disabledIconResid;
             mMessageResId = message;
-            mEnabledStatusMessageResId = enabledStatusMessageResId;
-            mDisabledStatusMessageResId = disabledStatusMessageResId;
         }
 
         /**
@@ -1067,12 +1063,13 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
                 icon.setEnabled(enabled);
             }
 
-            if (statusView != null) {
-                statusView.setText(on ? mEnabledStatusMessageResId : mDisabledStatusMessageResId);
-                statusView.setVisibility(View.VISIBLE);
-                statusView.setEnabled(enabled);
-            }
+            final String status = getStatus();
+            if (!TextUtils.isEmpty(status)) {
+                statusView.setText(status);
+            } else {
+                statusView.setVisibility(View.GONE);
             v.setEnabled(enabled);
+            }
 
             return v;
         }
@@ -1209,9 +1206,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         public SilentModeToggleAction() {
             super(R.drawable.ic_audio_vol_mute,
                     R.drawable.ic_audio_vol,
-                    R.string.global_action_toggle_silent_mode,
-                    R.string.global_action_silent_mode_on_status,
-                    R.string.global_action_silent_mode_off_status);
+                    R.string.global_action_toggle_silent_mode);
         }
 
         void onToggle(boolean on) {
