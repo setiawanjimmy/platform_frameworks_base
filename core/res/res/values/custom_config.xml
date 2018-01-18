@@ -49,4 +49,7 @@
         <item>settings</item>
         <item>silent</item>
     </string-array>
+
+    <!-- Ambient music -->
+    <bool name="config_canForceDozeNotifications">true</bool>
 </resources>
