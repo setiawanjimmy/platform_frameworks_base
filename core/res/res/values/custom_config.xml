@@ -32,4 +32,7 @@
         <item>screenshot</item>
         <item>airplane</item>
     </string-array>
+
+    <!-- Ambient music -->
+    <bool name="config_canForceDozeNotifications">true</bool>
 </resources>

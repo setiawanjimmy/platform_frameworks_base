@@ -4058,6 +4058,16 @@ public final class Settings {
        public static final String QS_FOOTER_WARNINGS = "qs_footer_warnings";
 
         /**
+         * Force an Ambient notification when a new media track is being played
+         * 0 - disabled
+         * 1 - show track info within normal Ambient Display notifications
+         * 2 - show track info within normal Ambient Display and also force new notifications when skipping tracks
+         * 3 - like 2, but for forced notifications use a clean layout with hidden clock
+         * @hide
+         */
+        public static final String FORCE_AMBIENT_FOR_MEDIA = "force_ambient_for_media";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
