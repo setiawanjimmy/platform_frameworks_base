@@ -26,7 +26,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.android.internal.hardware.AmbientDisplayConfiguration;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.systemui.R;
@@ -37,7 +36,6 @@ public class TunerFragment extends PreferenceFragment {
     private static final String TAG = "TunerFragment";
 
     private static final String KEY_PLUGINS = "plugins";
-    private static final CharSequence KEY_DOZE = "doze";
 
     public static final String SETTING_SEEN_TUNER_WARNING = "seen_tuner_warning";
 
@@ -64,9 +62,6 @@ public class TunerFragment extends PreferenceFragment {
         if (!PluginPrefs.hasPlugins(getContext())) {
             getPreferenceScreen().removePreference(findPreference(KEY_PLUGINS));
         }
-        if (!alwaysOnAvailable()) {
-            getPreferenceScreen().removePreference(findPreference(KEY_DOZE));
-        }
 
         /*if (Settings.Secure.getInt(getContext().getContentResolver(), SETTING_SEEN_TUNER_WARNING,
                 0) == 0) {
@@ -74,10 +69,6 @@ public class TunerFragment extends PreferenceFragment {
                 new TunerWarningFragment().show(getFragmentManager(), WARNING_TAG);
             }
         }*/
-    }
-
-    private boolean alwaysOnAvailable() {
-        return new AmbientDisplayConfiguration(getContext()).alwaysOnAvailable();
     }
 
     @Override
