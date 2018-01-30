@@ -7,5 +7,5 @@
     <color name="condition_card_title_text_color">@*android:color/white</color>
     <color name="suggestion_tile_background">@*android:color/background_material_dark</color>
 
-    <color name="switchbar_background_color">@*android:color/material_grey_850</color>
+    <color name="switchbar_background_color">#ff111111</color>
 </resources>

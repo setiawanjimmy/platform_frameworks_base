@@ -17,5 +17,5 @@
  */
 -->
 <resources>
-    <color name="qs_edit_item_decoration_bg">@*android:color/material_grey_850</color>
+    <color name="qs_edit_item_decoration_bg">#ff111111</color>
 </resources>

@@ -7,16 +7,16 @@
     <color name="system_bar_background_semi_transparent">@*android:color/transparent</color>
 
     <!-- Colors material -->
-    <color name="background_material_dark">@*android:color/material_grey_900</color>
-    <color name="background_floating_material_dark">@*android:color/material_grey_850</color>
-    <color name="primary_material_dark">#ff3367d6</color>
-    <color name="primary_dark_material_dark">#ff2852ab</color>
-    <color name="primary_material_light">#ff3367d6</color>
-    <color name="primary_dark_material_light">#ff2852ab</color>
-    <color name="secondary_material_settings">#ff3367d6</color>
+    <color name="background_material_dark">#ff000000</color>
+    <color name="background_floating_material_dark">#ff111111</color>
+    <color name="primary_material_dark">#ff000000</color>
+    <color name="primary_dark_material_dark">#ff000000</color>
+    <color name="primary_material_light">#ff000000</color>
+    <color name="primary_dark_material_light">#ff000000</color>
+    <color name="secondary_material_settings">#ff000000</color>
     <color name="accent_material_dark">#ff3367d6</color>
     <color name="accent_material_light">#ff3367d6</color>
 
     <!-- Exposed colors -->
-    <color name="resolver_list_bg">@*android:color/material_grey_900</color>
+    <color name="resolver_list_bg">#ff000000</color>
 </resources>
