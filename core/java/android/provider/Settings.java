@@ -4085,12 +4085,6 @@ public final class Settings {
        public static final String BATTERY_LIGHT_REALLYFULL_COLOR = "battery_light_reallyfull_color";
 
         /**
-         * Wheter to play notification sound and vibration if screen is on
-         * @hide
-         */
-        public static final String NOTIFICATION_SOUND_VIB_SCREEN_ON = "notification_sound_vib_screen_on";
-
-        /**
          * Force an Ambient notification when a new media track is being played
          * 0 - disabled
          * 1 - show track info within normal Ambient Display notifications
