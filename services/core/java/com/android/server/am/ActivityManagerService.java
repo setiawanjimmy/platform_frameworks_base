@@ -557,6 +557,8 @@ public class ActivityManagerService extends IActivityManager.Stub
     // as one line, but close enough for now.
     static final int RESERVED_BYTES_PER_LOGCAT_LINE = 100;
 
+    static final String PROP_REFRESH_THEME = "sys.refresh_theme";
+
     // Access modes for handleIncomingUser.
     static final int ALLOW_NON_FULL = 0;
     static final int ALLOW_NON_FULL_IN_PROFILE = 1;
@@ -3942,12 +3944,12 @@ public class ActivityManagerService extends IActivityManager.Stub
                 startResult = startWebView(entryPoint,
                         app.processName, uid, uid, gids, debugFlags, mountExternal,
                         app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
-                        app.info.dataDir, null, entryPointArgs, refreshFont);
+                        app.info.dataDir, null, refreshTheme, entryPointArgs, refreshFont);
             } else {
                 startResult = Process.start(entryPoint,
                         app.processName, uid, uid, gids, debugFlags, mountExternal,
                         app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
-                        app.info.dataDir, invokeWith, entryPointArgs, refreshFont);
+                        app.info.dataDir, invokeWith, refreshTheme, entryPointArgs, refreshFont);
             }
             checkTime(startTime, "startProcess: returned from zygote!");
             Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);

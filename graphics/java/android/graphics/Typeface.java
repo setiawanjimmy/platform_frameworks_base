@@ -854,8 +854,9 @@ public class Typeface {
         for (int i = 0; i < families.length; i++) {
             ptrArray[i] = families[i].mNativePtr;
         }
-        return new Typeface(nativeCreateFromArray(
+        Typeface typeface = new Typeface(nativeCreateFromArray(
                 ptrArray, RESOLVE_BY_FONT_TABLE, RESOLVE_BY_FONT_TABLE));
+        return typeface;
     }
 
     /**
@@ -880,7 +881,8 @@ public class Typeface {
         for (int i = 0; i < sFallbackFonts.length; i++) {
             ptrArray[i + families.length] = sFallbackFonts[i].mNativePtr;
         }
-        return new Typeface(nativeCreateFromArray(ptrArray, weight, italic));
+        Typeface typeface = new Typeface(nativeCreateFromArray(ptrArray, weight, italic));
+        return typeface;
     }
 
     // don't allow clients to call this directly

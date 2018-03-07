@@ -203,12 +203,13 @@ public class ZygoteProcess {
                                                   String instructionSet,
                                                   String appDataDir,
                                                   String invokeWith,
+                                                  boolean refreshTheme,
                                                   String[] zygoteArgs,
                                                   boolean refreshFont) {
         try {
             return startViaZygote(processClass, niceName, uid, gid, gids,
                     debugFlags, mountExternal, targetSdkVersion, seInfo,
-                    abi, instructionSet, appDataDir, invokeWith, zygoteArgs, refreshFont);
+                    abi, instructionSet, appDataDir, invokeWith, refreshTheme, zygoteArgs, refreshFont);
         } catch (ZygoteStartFailedEx ex) {
             Log.e(LOG_TAG,
                     "Starting VM process through Zygote failed");
@@ -339,10 +340,11 @@ public class ZygoteProcess {
                                                       String instructionSet,
                                                       String appDataDir,
                                                       String invokeWith,
+                                                      boolean refreshTheme,
                                                       String[] extraArgs,
                                                       boolean refreshFont)
                                                       throws ZygoteStartFailedEx {
-        ArrayList<String> argsForZygote = new ArrayList<String>();
+ArrayList<String> argsForZygote = new ArrayList<String>();
 
         // --runtime-args, --setuid=, --setgid=,
         // and --setgroups= must go first
@@ -375,6 +377,9 @@ public class ZygoteProcess {
         }
         if ((debugFlags & Zygote.DEBUG_ENABLE_ASSERT) != 0) {
             argsForZygote.add("--enable-assert");
+        }
+        if (refreshTheme) {
+            argsForZygote.add("--refresh_theme");
         }
         if (mountExternal == Zygote.MOUNT_EXTERNAL_DEFAULT) {
             argsForZygote.add("--mount-external-default");
