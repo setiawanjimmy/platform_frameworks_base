@@ -35,4 +35,9 @@
 
     <!-- Ambient music -->
     <bool name="config_canForceDozeNotifications">true</bool>
+
+    <!-- Notification -->
+    <bool name="config_useDarkBgNotificationTinting_override">false</bool>
+    <bool name="config_notificationTinting_override">false</bool>
+
 </resources>
