@@ -82,6 +82,7 @@ public class BatteryMeterView extends LinearLayout implements
     private final Context mContext;
     private final int mFrameColor;
     private boolean mCharging;
+    private int mBatteryIconStyle;
 
     private final int mEndPadding;
 
